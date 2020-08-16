@@ -24,9 +24,9 @@ function! s:matcher.toggle_template(words, _text) abort " {{{1
   " a smart search for likely candidates and if there is no unique match, it
   " asks for target link.
 
-  " Allow map from word -> url (without extension)
-  if !empty(g:wiki_map_link_create) && exists('*' . g:wiki_map_link_create)
-    let l:url_target = call(g:wiki_map_link_create, [a:words])
+  " Allow map from text -> url (without extension)
+  if g:wiki_link_conceal && !empty(g:wiki_map_text_to_link) && exists('*' . g:wiki_map_text_to_link)
+    let l:url_target = call(g:wiki_map_text_to_link, [a:text])
   else
     let l:url_target = a:words
   endif
