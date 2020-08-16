@@ -19,6 +19,14 @@ function! wiki#url#wiki#handler(url) abort " {{{1
   if l:fname =~# '/$'
     let l:fname .= get(get(b:, 'wiki', {}), 'index_name', '')
   endif
+  
+  " Function for modifying the links themselves so we don't always have to be
+  " so explicit; is the exact same code as is used to modify page names when using
+  " WikiOpen
+  let l:fname =
+        \ !empty(g:wiki_map_visit_link) && exists('*' . g:wiki_map_visit_link)
+        \ ? call(g:wiki_map_visit_link, [l:fname])
+        \ : l:fname
 
   let l:handler.path = call(g:wiki_resolver, [l:fname, a:url.origin])
   let l:handler.dir = fnamemodify(l:handler.path, ':p:h')
