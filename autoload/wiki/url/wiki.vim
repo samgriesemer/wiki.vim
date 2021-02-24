@@ -24,8 +24,8 @@ function! wiki#url#wiki#handler(url) abort " {{{1
   " so explicit; is the exact same code as is used to modify page names when using
   " WikiOpen
   let l:fname =
-        \ !empty(g:wiki_map_text_to_file) && exists('*' . g:wiki_map_text_to_file)
-        \ ? call(g:wiki_map_text_to_file, [l:fname])
+        \ !empty(g:wiki_map_link_to_file) && exists('*' . g:wiki_map_link_to_file)
+        \ ? call(g:wiki_map_link_to_file, [l:fname])
         \ : l:fname
 
   let l:handler.path = call(g:wiki_resolver, [l:fname, a:url.origin])
